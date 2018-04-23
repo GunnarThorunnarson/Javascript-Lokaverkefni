@@ -1,0 +1,35 @@
+body{
+	background: #0f0f0f;
+	font-family: Arial;
+	color: #bababa;
+	margin: 0 auto;
+	max-width: 60%;
+}
+.concert{
+	text-align: center;
+	width: 49%;
+	float: left;
+	margin: 5px;
+	padding: 50px 0 50px 0;
+	background: #262626;
+}
+.concert:hover{
+	background: #3f3f3f;
+}
+.infoDiv{
+	padding: 25px;
+	display: inline-block;
+	text-align: left;
+	letter-spacing: 3px;
+	font-size: 0.8em;
+}
+strong{
+	color: #5ed6ff;
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
