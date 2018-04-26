@@ -1,25 +1,12 @@
 "use strict";
 
 
-let eventName = [];
-let locationName = [];
-let dateShow = [];
-let day = [];
-let hour = [];
-let imageSrc = [];
+let allConcerts = [];
 
 $.getJSON('http://apis.is/concerts', function(data) {
 	for (let i = 0; i < data['results'].length; i++){
-    	eventName.push(data['results'][i]['eventDateName']);
-    	locationName.push(data['results'][i]['eventHallName']);
-    	dateShow.push(data['results'][i]['dateOfShow']);
-    	imageSrc.push(data['results'][i]['imageSource']);
+    	allConcerts.push({eventName: data['results'][i]['eventDateName'], locationName: data['results'][i]['eventHallName'], dateShow: data['results'][i]['dateOfShow'], img: data['results'][i]['imageSource']});
 	}
-
-	dateShow.forEach(function (time_date){
-		day.push(time_date.split('T')[0]);
-		hour.push(time_date.split('T')[1]);
-	})
 
 	for (let x = 0; x < data['results'].length; x++){
 
@@ -28,7 +15,7 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		oneConcert.setAttribute('class', 'concert');
 
 		let oneImage = document.createElement('img');
-		oneImage.setAttribute('src', imageSrc[x]);
+		oneImage.setAttribute('src', allConcerts[x]['img']);
 		oneConcert.appendChild(oneImage);
 		oneConcert.appendChild(breakTag);
 
@@ -40,10 +27,10 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		let strongName = document.createElement('strong');
 		let infoNameText = document.createTextNode('Nafn:');
 		strongName.appendChild(infoNameText);
-		if (eventName[x].length > 25){
-			eventName[x] = eventName[x].substring(0, 25) + '...';
+		if (allConcerts[x]['eventName'].length > 25){
+			allConcerts[x]['eventName'] = allConcerts[x]['eventName'].substring(0, 25) + '...';
 		}
-		let event = document.createTextNode(' ' + eventName[x]);
+		let event = document.createTextNode(' ' + allConcerts[x]['eventName']);
 		infoName.appendChild(strongName);
 		infoName.appendChild(event);
 		infoElem.appendChild(infoName);
@@ -52,10 +39,10 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		let strongLoca = document.createElement('strong');
 		let infoLocaText = document.createTextNode('Staðsetning:');
 		strongLoca.appendChild(infoLocaText);
-		if (locationName[x].length > 25){
-			locationName[x] = locationName[x].substring(0, 25) + '...';
+		if (allConcerts[x]['locationName'].length > 25){
+			allConcerts[x]['locationName'] = allConcerts[x]['locationName'].substring(0, 25) + '...';
 		}
-		let loaction = document.createTextNode(' ' + locationName[x]);
+		let loaction = document.createTextNode(' ' + allConcerts[x]['locationName']);
 		infoLoca.appendChild(strongLoca);
 		infoLoca.appendChild(loaction);
 		infoElem.appendChild(infoLoca);
@@ -64,19 +51,10 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		let strongDate = document.createElement('strong');
 		let infoDateText = document.createTextNode('Dagur:');
 		strongDate.appendChild(infoDateText);
-		let date = document.createTextNode(' ' + day[x]);
+		let date = document.createTextNode(' ' + allConcerts[x]['dateShow']);
 		infoDate.appendChild(strongDate);
 		infoDate.appendChild(date);
 		infoElem.appendChild(infoDate);
-
-		let infoTime = document.createElement('div');
-		let strongTime = document.createElement('strong');
-		let infoTimeText = document.createTextNode('Tími:');
-		strongTime.appendChild(infoTimeText);
-		let time = document.createTextNode(' ' + hour[x]);
-		infoTime.appendChild(strongTime);
-		infoTime.appendChild(time);
-		infoElem.appendChild(infoTime);
 
 		document.body.appendChild(oneConcert);
 
