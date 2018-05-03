@@ -1,11 +1,17 @@
 "use strict";
 
+function setAttributes(el, attrs) { // Fall sem léttir á að setja inn attributes í elements
+	for(var key in attrs) {
+	  el.setAttribute(key, attrs[key]);
+	}
+}  
 
 let allConcerts = [];
 
 $.getJSON('http://apis.is/concerts', function(data) {
+	moment.locale('is');
 	for (let i = 0; i < data['results'].length; i++){
-    	allConcerts.push({eventName: data['results'][i]['eventDateName'], locationName: data['results'][i]['eventHallName'], dateShow: data['results'][i]['dateOfShow'], img: data['results'][i]['imageSource']});
+    	allConcerts.push({eventName: data['results'][i]['eventDateName'], locationName: data['results'][i]['eventHallName'], dateShow: moment(data['results'][i]['dateOfShow']).format('DoMMMM YYYY'), dateTime: moment(data['results'][i]['dateOfShow']).format('LT'), img: data['results'][i]['imageSource']});
 	}
 
 	for (let x = 0; x < data['results'].length; x++){
@@ -49,12 +55,23 @@ $.getJSON('http://apis.is/concerts', function(data) {
 
 		let infoDate = document.createElement('div');
 		let strongDate = document.createElement('strong');
-		let infoDateText = document.createTextNode('Dagur:');
+		let infoDateText = document.createTextNode('Dagsetning:');
 		strongDate.appendChild(infoDateText);
 		let date = document.createTextNode(' ' + allConcerts[x]['dateShow']);
 		infoDate.appendChild(strongDate);
 		infoDate.appendChild(date);
 		infoElem.appendChild(infoDate);
+
+		let infoTime = document.createElement('div');
+		let strongTime = document.createElement('strong');
+		let infoTimeText = document.createTextNode('Klukkan:');
+		strongTime.appendChild(infoTimeText);
+		let time = document.createTextNode(' ' + allConcerts[x]['dateTime']);
+		infoTime.appendChild(strongTime);
+		infoTime.appendChild(time);
+		infoElem.appendChild(infoTime);
+
+
 
 		document.body.appendChild(oneConcert);
 
