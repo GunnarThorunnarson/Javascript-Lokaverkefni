@@ -1,10 +1,7 @@
 "use strict";
 
-function setAttributes(el, attrs) { // Fall sem léttir á að setja inn attributes í elements
-	for(var key in attrs) {
-	  el.setAttribute(key, attrs[key]);
-	}
-}  
+let holdConcerts = document.createElement('span')
+holdConcerts.setAttribute('id', 'concerts')
 
 let allConcerts = [];
 
@@ -19,6 +16,7 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		let breakTag = document.createElement('br');
 		let oneConcert = document.createElement('div');
 		oneConcert.setAttribute('class', 'concert');
+		oneConcert.setAttribute('id', allConcerts[x]['eventName']);
 
 		let oneImage = document.createElement('img');
 		oneImage.setAttribute('src', allConcerts[x]['img']);
@@ -72,10 +70,40 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		infoElem.appendChild(infoTime);
 
 
+		holdConcerts.appendChild(oneConcert)
 
-		document.body.appendChild(oneConcert);
+		document.body.appendChild(holdConcerts);
 
 	}
 });
 
+var getConcerts = document.querySelectorAll('#concerts .concert');         
+var search = document.querySelector('#filter-search');      
+var cache = [];                        
 
+getConcerts.forEach(function(single_concert) {                 
+	cache.push({                          
+	  element: single_concert,                   
+	  text: single_concert.id.trim().toLowerCase() 
+	});
+});
+
+function filter() {                     
+var query = this.value.trim().toLowerCase();  
+	cache.forEach(function(img) {         
+	  var index = 0;                      
+
+	  if (query) {                        
+	    index = img.text.indexOf(query);  
+	  }
+
+	  img.element.style.display = index === -1 ? 'none' : ''; 
+	});
+}
+
+if ('oninput' in search) {        
+	search.addEventListener('input', filter);      
+} 
+else {                                
+	search.addEventListener('keyup', filter);          
+}    
