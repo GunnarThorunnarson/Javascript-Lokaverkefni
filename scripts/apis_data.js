@@ -75,35 +75,36 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		document.body.appendChild(holdConcerts);
 
 	}
-});
 
-var getConcerts = document.querySelectorAll('#concerts .concert');         
-var search = document.querySelector('#filter-search');      
-var cache = [];                        
 
-getConcerts.forEach(function(single_concert) {                 
-	cache.push({                          
-	  element: single_concert,                   
-	  text: single_concert.id.trim().toLowerCase() 
+	var selectAllConcert = document.querySelectorAll('#concerts .concert');    
+	var search = document.querySelector('#filter-search');
+	var cache = [];
+
+	selectAllConcert.forEach(function(single_concert) {
+		cache.push({
+		  element: single_concert,
+		  text: single_concert.id.trim().toLowerCase()
+		});
 	});
+
+	function filter() {
+	var query = this.value.trim().toLowerCase();
+		cache.forEach(function(concertText) {
+		  var index = 0;
+
+		  if (query) {
+		    index = concertText.text.indexOf(query);
+		  }
+
+		  concertText.element.style.display = index === -1 ? 'none' : '';
+		});
+	}
+
+	if ('oninput' in search) {
+		search.addEventListener('input', filter);
+	} 
+	else {
+		search.addEventListener('keyup', filter);
+	}
 });
-
-function filter() {                     
-var query = this.value.trim().toLowerCase();  
-	cache.forEach(function(img) {         
-	  var index = 0;                      
-
-	  if (query) {                        
-	    index = img.text.indexOf(query);  
-	  }
-
-	  img.element.style.display = index === -1 ? 'none' : ''; 
-	});
-}
-
-if ('oninput' in search) {        
-	search.addEventListener('input', filter);      
-} 
-else {                                
-	search.addEventListener('keyup', filter);          
-}    
