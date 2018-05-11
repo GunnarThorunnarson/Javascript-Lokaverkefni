@@ -1,11 +1,23 @@
 body{
+	padding-top: 100px;
 	background: #efefef;
 	font-family: Arial;
 	color: #000000;
 	text-align: center;
 }
+header{
+	background: #003182;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 25px 0 25px 0;
+	font-size: 2em;
+	letter-spacing: 15px;
+	color: #ffffff;
+}
 #search{
-	padding: 15px 0 15px 0;
+	padding: 25px 0 0px 0;
 }
 input {
 	width: 40%;
@@ -36,6 +48,25 @@ input:focus {
 strong{
 	color: #0040a8;
 	font-size: 1.25em;
+}
+ul {
+	border-spacing: 5px;
+	font-size: 1.5em;
+	margin: auto;
+	width: 50%;
+	padding: 25px;
+    list-style-type: none;
+    display:table;
+}
+li {
+	padding: 15px;
+	text-align: center;
+	border: 1px solid black;
+    display: table-cell;
+    cursor: pointer;
+}
+li:hover{
+	background: #bababa;
 }
 *,
 *:before,
