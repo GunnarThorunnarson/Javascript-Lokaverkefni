@@ -24,4 +24,4 @@ https://screencast-o-matic.com/watch/cFhl6CbxGD
 Verkefnið gekk alveg mjög vel hjá mér en eina sem ég hefði viljað gert betur var takkinn sem raðar eftir dagsetningu. Ég hefði viljað raða tónleikana án þess að refresha síðuna
 
 
-TAKK Fyrir ÖNNINA
+TAKK FYRIR ÖNNINA
