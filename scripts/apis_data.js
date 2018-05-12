@@ -7,13 +7,13 @@ let allConcerts = [];
 let sortByName;
 let sortByPlace;
 
-$.getJSON('http://apis.is/concerts', function(data) {
-	moment.locale('is');
-	for (let i = 0; i < data['results'].length; i++){
+$.getJSON('https://apis.is/concerts', function(data) {
+	moment.locale('is'); // Breytta moment yfir á íslensku
+	for (let i = 0; i < data['results'].length; i++){ // Ná í gögn og setja þau i objects sem fara í Array
     	allConcerts.push({eventName: data['results'][i]['eventDateName'], locationName: data['results'][i]['eventHallName'], dateShow: moment(data['results'][i]['dateOfShow']).format('DoMMMM YYYY'), dateTime: moment(data['results'][i]['dateOfShow']).format('LT'), img: data['results'][i]['imageSource']});
 	}
 
-	function createElements(){
+	function createElements(){ // Fall sem býr til elements
 		for (let x = 0; x < data['results'].length; x++){
 
 			let breakTag = document.createElement('br');
@@ -80,7 +80,7 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		}
 	}
 
-	function searchFunction() {
+	function searchFunction() { // Fall sem searchar í gegnum öll concerts
 		var selectAllConcert = document.querySelectorAll('#concerts .concert');    
 		var search = document.querySelector('#filter-search');
 		var cache = [];
@@ -116,7 +116,7 @@ $.getJSON('http://apis.is/concerts', function(data) {
 	createElements();
 	searchFunction();
 
-	sortByName = function sortedConcertsName(){
+	sortByName = function sortedConcertsName(){ // Fall sem raðar alla tónleika eftir nafni
 		var myConcerts = document.getElementById('concerts');
 		while (myConcerts.firstChild){
 			myConcerts.removeChild(myConcerts.firstChild);
@@ -130,7 +130,7 @@ $.getJSON('http://apis.is/concerts', function(data) {
 		searchFunction();
 	}
 
-	sortByPlace = function sortedConcertsPlace(){
+	sortByPlace = function sortedConcertsPlace(){ // Fall sem raðar alla tónleika eftir staðsetningu
 		var myConcerts = document.getElementById('concerts');
 		while (myConcerts.firstChild){
 			myConcerts.removeChild(myConcerts.firstChild);
